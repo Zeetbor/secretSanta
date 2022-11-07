@@ -1,0 +1,24 @@
+CREATE TABLE users (
+	id bigint auto_increment,
+	
+)
+
+CREATE TABLE draws (
+	id bigint auto_increment,
+	name varchar(50),
+	drawDate dateTime,
+	createdAt date,
+	updatedAt date,
+	PRIMARY KEY(id)
+)
+
+CREATE TABLE wishlist (
+	id bigint auto_increment,
+	userId bigint unsigned,
+	name varchar(100),
+	hyperlink varchar(150),
+	createdAt date,
+	updatedAt date,
+	PRIMARY KEY(id),
+	FOREIGN KEY (userId) REFERENCES users(id)
+)

@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Container from "@mui/material/Container";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { Stack } from "@mui/system";
+import Footer from "./components/Footer";
+import Main from './components/Main'
 
 function App() {
+
+  const [userEmail, setUserEmail] = useState("")
+
+  useEffect(() => {
+    callBackendAPI()
+      .then((res) => console.log(res.express))
+      .catch((err) => console.log(err));
+  })
+
+  const callBackendAPI = async () => {
+    const response = await fetch("/express_backend");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body;
+  };
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header></Header>
+
+      <Main></Main>
+
+      <Footer></Footer>
     </div>
   );
 }
